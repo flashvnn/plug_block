@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * @file
+ * Contain of plugin_block.module
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function plug_block_block_info() {
+  static $blocks = FALSE;
+  // prevent block_info invoked multi times.
+  if (!$blocks) {
+    $blocks  = array();
+    $manager = \Drupal\Core\Block\BlockManager::create();
+    foreach ($manager->getDefinitions() as $id => $plugin) {
+      $blocks[$id] = array(
+        'info' => $plugin['admin_label'],
+      );
+      $cache = DRUPAL_CACHE_PER_ROLE;
+      if (isset($plugin['cache'])) {
+        switch ($plugin['cache']) {
+          case 'DRUPAL_CACHE_CUSTOM':
+            $cache = DRUPAL_CACHE_CUSTOM;
+            break;
+          case 'DRUPAL_CACHE_GLOBAL':
+            $cache = DRUPAL_CACHE_GLOBAL;
+            break;
+          case 'DRUPAL_CACHE_PER_PAGE':
+            $cache = DRUPAL_CACHE_PER_PAGE;
+            break;
+          case 'DRUPAL_CACHE_PER_USER':
+            $cache = DRUPAL_CACHE_PER_USER;
+            break;
+          case 'DRUPAL_NO_CACHE':
+            $cache = DRUPAL_NO_CACHE;
+            break;
+        }
+      }
+      $blocks[$id]['cache'] = $cache;
+    }
+  }
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function plug_block_block_view($delta = '') {
+  $block = array();
+
+  try {
+    $manager          = \Drupal\Core\Block\BlockManager::create();
+    $instance         = $manager->createInstance($delta);
+    $block['subject'] = $instance->subject();
+    $block['content'] = $instance->build();
+  }
+  catch (Exception $e) {
+    watchdog('plug_block', $e->getMessage());
+  }
+
+  return $block;
+}

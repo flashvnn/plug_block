@@ -1,0 +1,12 @@
+name = Plug Block
+description = Plug Block
+package = Plug
+core = 7.x
+version = 7.x-1.0
+
+dependencies[] = plug
+
+registry_autoload[] = PSR-0
+registry_autoload[] = PSR-4
+
+registry_autoload[DRUPAL_ROOT/sites/all/plugins] = PSR-4
