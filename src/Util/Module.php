@@ -1,13 +1,14 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\plug\Util\Module.
- */
-
 namespace Drupal\plug_block\Util;
 
-class Module extends \Drupal\plug\Util\Module {
+use Drupal\plug\Util\Module as PlugModule;
+
+/**
+ * Custom Util Module.
+ */
+class Module extends PlugModule {
+
   /**
    * Gets the array of available namespaces for plugins.
    *
@@ -30,4 +31,5 @@ class Module extends \Drupal\plug\Util\Module {
     }
     return $namespaces;
   }
+
 }

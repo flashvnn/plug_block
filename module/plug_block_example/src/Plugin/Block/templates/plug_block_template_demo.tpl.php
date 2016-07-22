@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contain of plug_block_template_demo.php
+ * Contain of plug_block_template_demo.php.
  */
 ?>
 

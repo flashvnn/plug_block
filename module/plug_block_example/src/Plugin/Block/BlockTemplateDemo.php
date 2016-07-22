@@ -1,18 +1,11 @@
 <?php
-
-/**
- * @file
- * Contain of BlockTemplateDemo.php
- */
-
 namespace Drupal\plug_block_example\Plugin\Block;
 
-
-use Drupal\Core\Block\Annotation\Block;
 use Drupal\plug_block\Block\BlockTemplateBase;
 
 /**
- * Block with template demo
+ * Block with template demo.
+ *
  * @Block(
  *  id = "plug_block_template_demo",
  *  admin_label = "Block with Template",
@@ -21,8 +14,10 @@ use Drupal\plug_block\Block\BlockTemplateBase;
  * )
  */
 class BlockTemplateDemo extends BlockTemplateBase {
+
   /**
    * Must implement this prepare function.
+   *
    * This function help you can prepare variables or change template.
    */
   public function prepare($file = __FILE__) {

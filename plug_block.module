@@ -2,37 +2,43 @@
 
 /**
  * @file
- * Contain of plugin_block.module
+ * Contain of plugin_block.module.
  */
+
+use Drupal\Core\Block\BlockManager;
 
 /**
  * Implements hook_block_info().
  */
 function plug_block_block_info() {
   static $blocks = FALSE;
-  // prevent block_info invoked multi times.
+  // Prevent block_info invoked multi times.
   if (!$blocks) {
     $blocks  = array();
-    $manager = \Drupal\Core\Block\BlockManager::create();
+    $manager = BlockManager::create();
     foreach ($manager->getDefinitions() as $id => $plugin) {
       $blocks[$id] = array(
         'info' => $plugin['admin_label'],
       );
-      $cache = DRUPAL_CACHE_PER_ROLE;
+      $cache       = DRUPAL_CACHE_PER_ROLE;
       if (isset($plugin['cache'])) {
         switch ($plugin['cache']) {
           case 'DRUPAL_CACHE_CUSTOM':
             $cache = DRUPAL_CACHE_CUSTOM;
             break;
+
           case 'DRUPAL_CACHE_GLOBAL':
             $cache = DRUPAL_CACHE_GLOBAL;
             break;
+
           case 'DRUPAL_CACHE_PER_PAGE':
             $cache = DRUPAL_CACHE_PER_PAGE;
             break;
+
           case 'DRUPAL_CACHE_PER_USER':
             $cache = DRUPAL_CACHE_PER_USER;
             break;
+
           case 'DRUPAL_NO_CACHE':
             $cache = DRUPAL_NO_CACHE;
             break;
@@ -51,7 +57,7 @@ function plug_block_block_info() {
 function plug_block_form_block_admin_configure_alter(&$form, &$form_state, $form_id) {
   if ($form['module']['#value'] == 'plug_block') {
     $form['#validate'][] = 'plug_block_form_block_admin_configure_validate';
-    $form['#submit'][] = 'plug_block_form_block_admin_configure_submit';
+    $form['#submit'][]   = 'plug_block_form_block_admin_configure_submit';
   }
 }
 
@@ -59,11 +65,11 @@ function plug_block_form_block_admin_configure_alter(&$form, &$form_state, $form
  * Implements hook_block_configure().
  */
 function plug_block_block_configure($delta = '') {
-  $form = array();
+  $form       = array();
   $form_state = array();
   /** @var \Drupal\Core\Block\BlockBase $instance */
   $instance = plug_block_get_instance($delta);
-  $form = $instance->blockForm($form, $form_state);
+  $form     = $instance->blockForm($form, $form_state);
 
   return $form;
 }
@@ -91,11 +97,14 @@ function plug_block_form_block_admin_configure_submit(&$form, &$form_state) {
 /**
  * Get Plug Block Instance by id.
  *
- * @param $plug_id
+ * @param string $plug_id
+ *    The plugin id.
+ *
  * @return object
+ *   The instance of plugin.
  */
 function plug_block_get_instance($plug_id) {
-  $manager  = \Drupal\Core\Block\BlockManager::create();
+  $manager  = BlockManager::create();
   $instance = $manager->createInstance($plug_id);
 
   return $instance;
@@ -108,10 +117,13 @@ function plug_block_block_view($delta = '') {
   return plug_block_build($delta);
 }
 
+/**
+ * Build plug block with id.
+ */
 function plug_block_build($plug_id) {
   $block = array();
   try {
-    $instance = plug_block_get_instance($plug_id);
+    $instance         = plug_block_get_instance($plug_id);
     $block['subject'] = $instance->subject();
     $block['content'] = $instance->build();
   }

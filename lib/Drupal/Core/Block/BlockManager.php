@@ -1,12 +1,14 @@
 <?php
+
 namespace Drupal\Core\Block;
 
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\plug_block\Util\Module;
 
 /**
- * @file
- * Contain of BlockPluginManager.php
+ * Class BlockManager.
+ *
+ * @package Drupal\Core\Block
  */
 class BlockManager extends DefaultPluginManager {
 
@@ -37,4 +39,5 @@ class BlockManager extends DefaultPluginManager {
   public static function create($bin = 'cache') {
     return new static(Module::getNamespaces(), _cache_get_object($bin));
   }
+
 }

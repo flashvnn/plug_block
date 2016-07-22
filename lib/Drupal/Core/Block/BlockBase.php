@@ -1,23 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Block\BlockBase.
- */
-
 namespace Drupal\Core\Block;
 
-use Drupal\block\BlockInterface;
 use Drupal\Component\Plugin\PluginBase;
-use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContextAwarePluginAssignmentTrait;
-use Drupal\Core\Plugin\ContextAwarePluginBase;
-use Drupal\Component\Utility\Unicode;
-use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Language\LanguageInterface;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Component\Transliteration\TransliterationInterface;
 
 /**
  * Defines a base block implementation that most blocks plugins will extend.
@@ -31,7 +16,7 @@ use Drupal\Component\Transliteration\TransliterationInterface;
 abstract class BlockBase extends PluginBase implements BlockPluginInterface {
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function label() {
     if (!empty($this->configuration['label'])) {
@@ -41,6 +26,12 @@ abstract class BlockBase extends PluginBase implements BlockPluginInterface {
     return (string) $definition['admin_label'];
   }
 
+  /**
+   * Get subject of Block.
+   *
+   * @return string
+   *    Block subject.
+   */
   public function subject() {
     $definition = $this->getPluginDefinition();
     return !empty($definition['subject']) ? $definition['subject'] : "";
@@ -66,12 +57,14 @@ abstract class BlockBase extends PluginBase implements BlockPluginInterface {
   public function blockSubmit($form, $form_state) {
 
   }
+
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function build() {
     return array(
       '#markup' => '',
     );
   }
+
 }

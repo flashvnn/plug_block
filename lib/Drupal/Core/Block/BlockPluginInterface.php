@@ -1,12 +1,6 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Block\BlockPluginInterface.
- */
-
 namespace Drupal\Core\Block;
-
 
 /**
  * Defines the required interface for all block plugins.
