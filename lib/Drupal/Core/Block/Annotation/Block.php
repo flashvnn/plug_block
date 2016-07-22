@@ -1,9 +1,11 @@
 <?php
-namespace Drupal\Core\Block\Annotation;
 /**
  * @file
  * Contain of Block.php
  */
+
+namespace Drupal\Core\Block\Annotation;
+
 use Drupal\Component\Annotation\Plugin;
 
 /**
@@ -13,6 +15,7 @@ use Drupal\Component\Annotation\Plugin;
  *
  * @Annotation
  */
+
 /**
  * Defines a Block annotation object.
  *

@@ -46,14 +46,72 @@ function plug_block_block_info() {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function plug_block_form_block_admin_configure_alter(&$form, &$form_state, $form_id) {
+  if ($form['module']['#value'] == 'plug_block') {
+    $form['#validate'][] = 'plug_block_form_block_admin_configure_validate';
+    $form['#submit'][] = 'plug_block_form_block_admin_configure_submit';
+  }
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function plug_block_block_configure($delta = '') {
+  $form = array();
+  $form_state = array();
+  /** @var \Drupal\Core\Block\BlockBase $instance */
+  $instance = plug_block_get_instance($delta);
+  $form = $instance->blockForm($form, $form_state);
+
+  return $form;
+}
+
+/**
+ * Validate callback for plug_block_form.
+ */
+function plug_block_form_block_admin_configure_validate(&$form, &$form_state) {
+  $delta = $form['delta']['#value'];
+  /** @var \Drupal\Core\Block\BlockBase $instance */
+  $instance = plug_block_get_instance($delta);
+  $instance->blockValidate($form, $form_state);
+}
+
+/**
+ * Submit callback for plug_block_form.
+ */
+function plug_block_form_block_admin_configure_submit(&$form, &$form_state) {
+  $delta = $form['delta']['#value'];
+  /** @var \Drupal\Core\Block\BlockBase $instance */
+  $instance = plug_block_get_instance($delta);
+  $instance->blockSubmit($form, $form_state);
+}
+
+/**
+ * Get Plug Block Instance by id.
+ *
+ * @param $plug_id
+ * @return object
+ */
+function plug_block_get_instance($plug_id) {
+  $manager  = \Drupal\Core\Block\BlockManager::create();
+  $instance = $manager->createInstance($plug_id);
+
+  return $instance;
+}
+
+/**
  * Implements hook_block_view().
  */
 function plug_block_block_view($delta = '') {
-  $block = array();
+  return plug_block_build($delta);
+}
 
+function plug_block_build($plug_id) {
+  $block = array();
   try {
-    $manager          = \Drupal\Core\Block\BlockManager::create();
-    $instance         = $manager->createInstance($delta);
+    $instance = plug_block_get_instance($plug_id);
     $block['subject'] = $instance->subject();
     $block['content'] = $instance->build();
   }

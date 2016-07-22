@@ -43,9 +43,29 @@ abstract class BlockBase extends PluginBase implements BlockPluginInterface {
 
   public function subject() {
     $definition = $this->getPluginDefinition();
-    return !empty($definition['subject'])? $definition['subject'] : "";
+    return !empty($definition['subject']) ? $definition['subject'] : "";
   }
-  
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockForm($form, $form_state) {
+    return array();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockValidate($form, $form_state) {
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockSubmit($form, $form_state) {
+
+  }
   /**
    * @inheritDoc
    */

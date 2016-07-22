@@ -1,5 +1,6 @@
 <?php
 namespace Drupal\plug_block\Block;
+
 use Drupal\Core\Block\BlockBase;
 
 /**
@@ -9,7 +10,8 @@ use Drupal\Core\Block\BlockBase;
 class BlockTemplateBase extends BlockBase {
   public $variables = [];
   public $template_path;
-  public $build = array();
+  public $build     = array();
+
   /**
    * Prepare for variables and template path.
    * It must implemented in sub class.
@@ -28,7 +30,7 @@ class BlockTemplateBase extends BlockBase {
   }
 
   public function endsWith($haystack, $needle) {
-    return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
+    return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
   }
 
   /**
@@ -40,7 +42,7 @@ class BlockTemplateBase extends BlockBase {
       $this->template_path = $this->template_path . '.tpl.php';
     }
     if (file_exists($this->template_path)) {
-      $this->template_path = str_replace(DRUPAL_ROOT . "/", '', $this->template_path);
+      $this->template_path    = str_replace(DRUPAL_ROOT . "/", '', $this->template_path);
       $this->build['#markup'] = theme_render_template($this->template_path, $this->variables);
       return $this->build;
     }

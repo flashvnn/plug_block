@@ -31,6 +31,55 @@ interface BlockPluginInterface {
    */
   public function label();
 
+  /**
+   * Returns the configuration form elements specific to this block plugin.
+   *
+   * Blocks that need to add form elements to the normal block configuration
+   * form should implement this method.
+   *
+   * @param array $form
+   *   The form definition array for the block configuration form.
+   * @param array $form_state
+   *   The current state of the form.
+   *
+   * @return array $form
+   *   The renderable form array representing the entire configuration form.
+   */
+  public function blockForm($form, $form_state);
+
+  /**
+   * Adds block type-specific validation for the block form.
+   *
+   * Note that this method takes the form structure and form state for the full
+   * block configuration form as arguments, not just the elements defined in
+   * BlockPluginInterface::blockForm().
+   *
+   * @param array $form
+   *   The form definition array for the full block configuration form.
+   * @param array $form_state
+   *   The current state of the form.
+   *
+   * @see \Drupal\Core\Block\BlockPluginInterface::blockForm()
+   * @see \Drupal\Core\Block\BlockPluginInterface::blockSubmit()
+   */
+  public function blockValidate($form, $form_state);
+
+  /**
+   * Adds block type-specific submission handling for the block form.
+   *
+   * Note that this method takes the form structure and form state for the full
+   * block configuration form as arguments, not just the elements defined in
+   * BlockPluginInterface::blockForm().
+   *
+   * @param array $form
+   *   The form definition array for the full block configuration form.
+   * @param array $form_state
+   *   The current state of the form.
+   *
+   * @see \Drupal\Core\Block\BlockPluginInterface::blockForm()
+   * @see \Drupal\Core\Block\BlockPluginInterface::blockValidate()
+   */
+  public function blockSubmit($form, $form_state);
 
   /**
    * Builds and returns the renderable array for this block plugin.
@@ -46,5 +95,5 @@ interface BlockPluginInterface {
    * @see \Drupal\block\BlockViewBuilder
    */
   public function build();
-  
+
 }

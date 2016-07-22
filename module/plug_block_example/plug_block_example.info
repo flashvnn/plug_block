@@ -1,10 +1,8 @@
 name = Plug Block Example
-description = Plug Block Example
+description = Module demonstration how to use Plug Block.
 package = Plug
 core = 7.x
 version = 7.x-1.x
 
-;files[] =
 dependencies[] = plug_block
-
 registry_autoload[] = PSR-4

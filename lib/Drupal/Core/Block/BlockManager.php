@@ -1,5 +1,6 @@
 <?php
 namespace Drupal\Core\Block;
+
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\plug_block\Util\Module;
 
@@ -7,7 +8,7 @@ use Drupal\plug_block\Util\Module;
  * @file
  * Contain of BlockPluginManager.php
  */
-class BlockManager extends DefaultPluginManager{
+class BlockManager extends DefaultPluginManager {
 
   /**
    * Constructs BlockPluginManager.

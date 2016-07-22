@@ -7,7 +7,7 @@
 
 namespace Drupal\plug_block\Util;
 
-class Module extends \Drupal\plug\Util\Module{
+class Module extends \Drupal\plug\Util\Module {
   /**
    * Gets the array of available namespaces for plugins.
    *

@@ -1,11 +1,24 @@
-### Block API Plugin with Drupal 7
+### Overview
+--------------------------
 Get the Block API plugin system for Drupal 8 in your Drupal 7 developments.
 
 Using this module, developers will be able to create block in a similar
 way as in D8.
 
 ### Installation
+--------------------------
+1. Copy the entire fft directory the Drupal sites/all/modules
+directory or use Drush.
+2. Login as an administrator. Enable the module on the Modules page.
 
-This module belongs to the Plug family and requires the awesome Plug module
-that provides the Drupal 8 plugin system for Drupal 7 developments.
-Plug installation process is described in the documentation.
+Use Drush command: drush en plug_block
+
+### Usage
+--------------------------
+
+Define Block plugin like Drupal 8 Plugin API:
+https://www.drupal.org/developing/api/8/block_api
+
+You can view implement in module plug_block_example.
+
+Also a video demo how to use Plug Block: http://bit.ly/plug_block

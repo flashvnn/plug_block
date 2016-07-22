@@ -23,7 +23,7 @@ use Drupal\plug_block\Block\BlockTemplateBase;
 class BlockTemplateDemo extends BlockTemplateBase {
   /**
    * Must implement this prepare function.
-   * This function help you can prepair variables of change template.
+   * This function help you can prepare variables or change template.
    */
   public function prepare($file = __FILE__) {
     parent::prepare($file);

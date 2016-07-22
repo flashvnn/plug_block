@@ -18,6 +18,33 @@ use Drupal\Core\Block\BlockBase;
  * )
  */
 class BlockD8Like extends BlockBase {
+
+  /** @inheritdoc */
+  public function blockForm($form, $form_state) {
+    $form['demo'] = array(
+      '#type'          => 'textfield',
+      '#required'      => TRUE,
+      '#title'         => t('DEMO'),
+      '#description'   => t('Input demo value with length > 2'),
+      '#default_value' => variable_get('plug_block_blockd8like_demo'),
+    );
+
+    return $form;
+  }
+
+  /** @inheritdoc */
+  public function blockValidate($form, $form_state) {
+    if (strlen($form_state['values']['demo']) < 2) {
+      form_set_error('demo', t('Please input a value with length >2'));
+    }
+  }
+
+  /** @inheritdoc */
+  public function blockSubmit($form, $form_state) {
+    variable_set('plug_block_blockd8like_demo', $form_state['values']['demo']);
+    drupal_set_message('Your configuration is saved.');
+  }
+
   /**
    * @inheritDoc
    */
